@@ -3,14 +3,21 @@
  */
 public abstract class Authentication {
 
+    public static class AlreadySetUpException extends Exception {
+        public AlreadySetUpException(String message) {
+            super(message);
+        }
+    }
+
     /*
         Base class for various ways of authentication.
      */
 
     private AuthenticationType authType;
+    private byte[] encryptedForm; // Stores hash
 
     public Authentication() {
-        authType = AuthenticationType.PASSWORD;
+
     }
 
     public Authentication(AuthenticationType authType) {
@@ -21,16 +28,25 @@ public abstract class Authentication {
         PASSWORD, PUZZLE, FINGERPRINT, FACE, IRIS
     }
 
-    public AuthenticationType getAuthType() {
-        return authType;
+    public AuthenticationType getAuthenticationType() {
+        return this.authType;
     }
 
-    public void setAuthType(AuthenticationType authType) {
+    public byte[] getEncryptedForm() {
+        return this.encryptedForm;
+    }
+
+    public void setAuthenticationType(AuthenticationType authType) {
         this.authType = authType;
     }
 
-    public abstract boolean setUpAuthentication();
+    public void setEncryptedForm(byte[] encryptedForm) {
+        this.encryptedForm = encryptedForm;
+    }
+
+    public abstract boolean setUpAuthentication(AuthenticationObject authObj) throws AlreadySetUpException;
 
     public abstract boolean isAuthenticated();
 
+    public abstract boolean checkAuthentication(AuthenticationObject authObj);
 }
