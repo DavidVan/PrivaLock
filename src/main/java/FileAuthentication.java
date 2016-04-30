@@ -1,3 +1,8 @@
+package main.java;
+
+import main.java.Authentication;
+import main.java.AuthenticationObject;
+
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 

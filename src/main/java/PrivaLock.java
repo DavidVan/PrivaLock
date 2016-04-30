@@ -1,3 +1,7 @@
+package main.java;
+
+import main.java.CryptoUtility;
+
 import javax.swing.*;
 import java.io.File;
 import java.io.IOException;
@@ -52,7 +56,7 @@ public class PrivaLock {
                         test.update(scan.next().getBytes());
                         AuthenticationObject name = new AuthenticationObject(test.digest());
                         File decrypted = new File(file.substring(0,file.lastIndexOf('.')));
-                        encryption.decrypt(name.getHashedForm(),myFile, decrypted);
+                        encryption.decrypt(name.getData(),myFile, decrypted);
 
                     }
                     break;
