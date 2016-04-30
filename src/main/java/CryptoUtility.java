@@ -54,9 +54,13 @@ public class CryptoUtility {
             convert.write(outputBytes);
             input.close();
             convert.close();
+            myFile.delete();
 
         } catch (NoSuchAlgorithmException | BadPaddingException | IllegalBlockSizeException | IOException | InvalidKeyException | NoSuchPaddingException e) {
-            e.printStackTrace();
+
+            System.out.println("Wrong Password!");
+
+//            e.printStackTrace();
         }
     }
 }
