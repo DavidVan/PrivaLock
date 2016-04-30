@@ -8,19 +8,19 @@ public class PasswordAuthentication extends Authentication {
 
     public PasswordAuthentication() {
         setAuthenticationType(AuthenticationType.PASSWORD);
-        setHashedForm(new byte[0]);
+        setData(new byte[0]);
     }
 
     public PasswordAuthentication(AuthenticationObject authObj) {
         setAuthenticationType(AuthenticationType.PASSWORD);
-        setHashedForm(authObj.getHashedForm());
+        setData(authObj.getData());
         setSetUp(true);
     }
 
     @Override
     public boolean setUpAuthentication(AuthenticationObject authObj) throws AlreadySetUpException {
         if (!isSetUp()) {
-            setHashedForm(authObj.getHashedForm());
+            setData(authObj.getData());
             return true;
         }
         else {
@@ -37,10 +37,10 @@ public class PasswordAuthentication extends Authentication {
             try {
                 // The password in this object.
                 MessageDigest systemHashedContent = MessageDigest.getInstance("MD5");
-                systemHashedContent.update(this.getHashedForm());
+                systemHashedContent.update(this.getData());
                 // The user-entered password.
                 MessageDigest userHashedContent = MessageDigest.getInstance("MD5");
-                userHashedContent.update(authObj.getHashedForm());
+                userHashedContent.update(authObj.getData());
                 if (MessageDigest.isEqual(systemHashedContent.digest(), userHashedContent.digest())) {
                     return true; // Looks like it's the same password.
                 }

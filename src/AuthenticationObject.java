@@ -10,19 +10,19 @@ public class AuthenticationObject implements Serializable{
         For example, representing a SHA512 hash.
      */
 
-    private byte[] hashedForm; // Stores hash.
+    private byte[] data; // Stores data.
 
-    public AuthenticationObject(byte[] hashedForm) {
-        this.hashedForm = hashedForm;
+    public AuthenticationObject(byte[] data) {
+        this.data = data;
     }
 
-    public byte[] getHashedForm() {
-        return hashedForm;
+    public byte[] getData() {
+        return data;
     }
 
     @Override
     public String toString() {
-        return byteToHex(this.hashedForm);
+        return byteToHex(this.data);
     }
 
     public String byteToHex(byte[] hashedContent) {

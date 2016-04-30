@@ -14,7 +14,7 @@ public abstract class Authentication {
      */
 
     private AuthenticationType authType;
-    private byte[] hashedForm; // Stores hash
+    private byte[] data; // Stores hash
     private boolean setUp = false;
 
     public Authentication() {
@@ -33,16 +33,16 @@ public abstract class Authentication {
         return this.authType;
     }
 
-    public byte[] getHashedForm() {
-        return this.hashedForm;
+    public byte[] getData() {
+        return this.data;
     }
 
     public void setAuthenticationType(AuthenticationType authType) {
         this.authType = authType;
     }
 
-    public void setHashedForm(byte[] hashedForm) {
-        this.hashedForm = hashedForm;
+    public void setData(byte[] data) {
+        this.data = data;
     }
 
     public void setSetUp(boolean setUp) {

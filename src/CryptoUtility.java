@@ -22,7 +22,7 @@ public class CryptoUtility {
         MessageDigest test = MessageDigest.getInstance("MD5");
         test.update(password.getBytes());
         AuthenticationObject name = new AuthenticationObject(test.digest());
-        this.password = name.getHashedForm();
+        this.password = name.getData();
     }
 
     public static void encrypt(byte[] password, File myFile, File encryptTo) {

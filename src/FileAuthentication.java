@@ -8,19 +8,19 @@ public class FileAuthentication extends Authentication {
 
     public FileAuthentication() {
         setAuthenticationType(AuthenticationType.FILE);
-        setHashedForm(new byte[0]);
+        setData(new byte[0]);
     }
 
     public FileAuthentication(AuthenticationObject authObj) {
         setAuthenticationType(AuthenticationType.FILE);
-        setHashedForm(authObj.getHashedForm());
+        setData(authObj.getData());
         setSetUp(true);
     }
 
     @Override
     public boolean setUpAuthentication(AuthenticationObject authObj) throws AlreadySetUpException {
         if (!isSetUp()) {
-            setHashedForm(authObj.getHashedForm());
+            setData(authObj.getData());
             return true;
         }
         else {
@@ -37,10 +37,10 @@ public class FileAuthentication extends Authentication {
             try {
                 // The file in this object.
                 MessageDigest systemHashedContent = MessageDigest.getInstance("MD5");
-                systemHashedContent.update(this.getHashedForm());
+                systemHashedContent.update(this.getData());
                 // The user-entered file.
                 MessageDigest userHashedContent = MessageDigest.getInstance("MD5");
-                userHashedContent.update(authObj.getHashedForm());
+                userHashedContent.update(authObj.getData());
                 if (MessageDigest.isEqual(systemHashedContent.digest(), userHashedContent.digest())) {
                     return true; // Looks like it's the same file.
                 }
