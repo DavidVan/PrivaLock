@@ -6,22 +6,20 @@ import java.security.NoSuchAlgorithmException;
  */
 public class PasswordAuthentication extends Authentication {
 
-    private boolean setUp = false;
-
     public PasswordAuthentication() {
         setAuthenticationType(AuthenticationType.PASSWORD);
-        setHashedForm(new byte[1]);
+        setHashedForm(new byte[0]);
     }
 
     public PasswordAuthentication(AuthenticationObject authObj) {
         setAuthenticationType(AuthenticationType.PASSWORD);
         setHashedForm(authObj.getHashedForm());
-        setUp = true;
+        setSetUp(true);
     }
 
     @Override
     public boolean setUpAuthentication(AuthenticationObject authObj) throws AlreadySetUpException {
-        if (!setUp) {
+        if (!isSetUp()) {
             setHashedForm(authObj.getHashedForm());
             return true;
         }
@@ -37,7 +35,7 @@ public class PasswordAuthentication extends Authentication {
 
     @Override
     public boolean checkAuthentication(AuthenticationObject authObj) {
-        if (!setUp) {
+        if (!isSetUp()) {
             return false;
         }
         else {

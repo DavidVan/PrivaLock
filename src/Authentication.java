@@ -15,6 +15,7 @@ public abstract class Authentication {
 
     private AuthenticationType authType;
     private byte[] hashedForm; // Stores hash
+    private boolean setUp = false;
 
     public Authentication() {
 
@@ -25,7 +26,7 @@ public abstract class Authentication {
     }
 
     public enum AuthenticationType {
-        PASSWORD, PUZZLE, FINGERPRINT, FACE, IRIS
+        PASSWORD, FILE, PUZZLE, FINGERPRINT, FACE, IRIS
     }
 
     public AuthenticationType getAuthenticationType() {
@@ -42,6 +43,14 @@ public abstract class Authentication {
 
     public void setHashedForm(byte[] hashedForm) {
         this.hashedForm = hashedForm;
+    }
+
+    public void setSetUp(boolean setUp) {
+        this.setUp = setUp;
+    }
+
+    public boolean isSetUp() {
+        return this.setUp;
     }
 
     public abstract boolean setUpAuthentication(AuthenticationObject authObj) throws AlreadySetUpException;
