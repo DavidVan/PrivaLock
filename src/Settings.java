@@ -1,5 +1,4 @@
-import java.io.IOException;
-import java.io.Serializable;
+import java.io.*;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.ArrayList;
@@ -8,27 +7,35 @@ import java.nio.file.Files;
  * Created by knnth on 4/29/2016.
  */
 public class Settings implements Serializable{
-
-    private String password = null;
+    private String username; //username used to define who is locking the files.
+    private String password = null; //password saved in order to lock files.
     private ArrayList<String> fileLock = new ArrayList<String>();
+
     public Settings() {
-        this.password = null;
+        password = null;
+        username = null;
     }
 
-    public Settings(String password){
+    public Settings(String username , String password){
+        this.username = username;
         this.password = password;
     }
 
-    public void save()throws IOException{
-        Path settings= Paths.get(System.getProperty("user.home")+"\\PrivaLock\\Setttings");
-        System.out.println("!!!");
-        System.out.println(settings.toString());
-        System.out.println("!!!");
-        if(!Files.exists(settings)){
+    public void save() {
+        File settingsfile = new File(System.getProperty("user.home") + "\\PrivaLock\\Setttings\\u.ser");
+        settingsfile.getParentFile().mkdirs(); //creates the directories needed relative the parent path of the file.
+
+        Settings current = new Settings("Ryan", "password");
+        try {
+            FileOutputStream fileOut = new FileOutputStream(settingsfile); //new FileOutputStream to create the .ser file.
+            ObjectOutputStream out = new ObjectOutputStream(fileOut); //new ObjectOutputStream to write objects in file.
+            out.writeObject(current); //writes the setting object in the file.
+            out.close();
+            fileOut.close();
+            System.out.printf("Serialized data is saved in: "+  settingsfile.toString());
+        } catch (IOException e) {
+            e.printStackTrace();
         }
-        /**
-         * You want to be able to save the current state of settings.. Implement here. If there was a setting left unmarked, will prompt error accordingly
-         */
     }
 
     public void loadSave(){
