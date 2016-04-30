@@ -14,7 +14,7 @@ public abstract class Authentication {
      */
 
     private AuthenticationType authType;
-    private byte[] encryptedForm; // Stores hash
+    private byte[] hashedForm; // Stores hash
 
     public Authentication() {
 
@@ -32,16 +32,16 @@ public abstract class Authentication {
         return this.authType;
     }
 
-    public byte[] getEncryptedForm() {
-        return this.encryptedForm;
+    public byte[] getHashedForm() {
+        return this.hashedForm;
     }
 
     public void setAuthenticationType(AuthenticationType authType) {
         this.authType = authType;
     }
 
-    public void setEncryptedForm(byte[] encryptedForm) {
-        this.encryptedForm = encryptedForm;
+    public void setHashedForm(byte[] hashedForm) {
+        this.hashedForm = hashedForm;
     }
 
     public abstract boolean setUpAuthentication(AuthenticationObject authObj) throws AlreadySetUpException;

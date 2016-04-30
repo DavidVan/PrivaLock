@@ -8,25 +8,25 @@ public class AuthenticationObject {
         For example, representing a SHA512 hash.
      */
 
-    private byte[] encryptedForm; // Stores hash.
+    private byte[] hashedForm; // Stores hash.
 
-    public AuthenticationObject(byte[] encryptedForm) {
-        this.encryptedForm = encryptedForm;
+    public AuthenticationObject(byte[] hashedForm) {
+        this.hashedForm = hashedForm;
     }
 
-    public byte[] getEncryptedForm() {
-        return encryptedForm;
+    public byte[] getHashedForm() {
+        return hashedForm;
     }
 
     @Override
     public String toString() {
-        return byteToHex(this.encryptedForm);
+        return byteToHex(this.hashedForm);
     }
 
-    public String byteToHex(byte[] encryptedContent) {
+    public String byteToHex(byte[] hashedContent) {
         String output = "";
-        for (int i = 0; i < encryptedContent.length; i++) {
-            output += String.format("%02X", encryptedContent[i]);
+        for (int i = 0; i < hashedContent.length; i++) {
+            output += String.format("%02X", hashedContent[i]);
         }
         return output;
     }

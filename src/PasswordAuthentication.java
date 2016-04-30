@@ -10,19 +10,19 @@ public class PasswordAuthentication extends Authentication {
 
     public PasswordAuthentication() {
         setAuthenticationType(AuthenticationType.PASSWORD);
-        setEncryptedForm(new byte[1]);
+        setHashedForm(new byte[1]);
     }
 
     public PasswordAuthentication(AuthenticationObject authObj) {
         setAuthenticationType(AuthenticationType.PASSWORD);
-        setEncryptedForm(authObj.getEncryptedForm());
+        setHashedForm(authObj.getHashedForm());
         setUp = true;
     }
 
     @Override
     public boolean setUpAuthentication(AuthenticationObject authObj) throws AlreadySetUpException {
         if (!setUp) {
-            setEncryptedForm(authObj.getEncryptedForm());
+            setHashedForm(authObj.getHashedForm());
             return true;
         }
         else {
@@ -37,17 +37,17 @@ public class PasswordAuthentication extends Authentication {
 
     @Override
     public boolean checkAuthentication(AuthenticationObject authObj) {
-        if (this.getEncryptedForm().length == 1) {
+        if (!setUp) {
             return false;
         }
         else {
             try {
                 // The password in this object.
                 MessageDigest systemEncryptedContent = MessageDigest.getInstance("SHA-512");
-                systemEncryptedContent.update(this.getEncryptedForm());
+                systemEncryptedContent.update(this.getHashedForm());
                 // The user-entered password.
                 MessageDigest userEncryptedContent = MessageDigest.getInstance("SHA-512");
-                userEncryptedContent.update(authObj.getEncryptedForm());
+                userEncryptedContent.update(authObj.getHashedForm());
                 if (MessageDigest.isEqual(systemEncryptedContent.digest(), userEncryptedContent.digest())) {
                     return true; // Looks like it's the same password.
                 }
