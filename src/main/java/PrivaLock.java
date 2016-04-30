@@ -1,10 +1,5 @@
-package main.java;
-
-import main.java.CryptoUtility;
-
 import javax.swing.*;
 import java.io.File;
-import java.io.IOException;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.util.Scanner;

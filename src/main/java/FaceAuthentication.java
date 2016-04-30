@@ -1,7 +1,4 @@
-package main.java;
 
-import main.java.Authentication;
-import main.java.AuthenticationObject;
 
 /**
  * Created by David on 4/30/2016.

@@ -1,7 +1,3 @@
-package main.java;
-
-import main.java.AuthenticationObject;
-
 import java.io.*;
 import java.nio.file.Files;
 import java.nio.file.Path;
