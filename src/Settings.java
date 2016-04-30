@@ -25,7 +25,7 @@ public class Settings implements Serializable{
         File settingsfile = new File(System.getProperty("user.home") + "\\PrivaLock\\Setttings\\u.ser");
         settingsfile.getParentFile().mkdirs(); //creates the directories needed relative the parent path of the file.
 
-        Settings current = new Settings("Ryan", "password");
+        Settings current = new Settings(username, password);
         try {
             FileOutputStream fileOut = new FileOutputStream(settingsfile); //new FileOutputStream to create the .ser file.
             ObjectOutputStream out = new ObjectOutputStream(fileOut); //new ObjectOutputStream to write objects in file.
