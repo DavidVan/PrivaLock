@@ -1,7 +1,9 @@
+import java.io.Serializable;
+
 /**
  * Created by David on 4/29/2016.
  */
-public class AuthenticationObject {
+public class AuthenticationObject implements Serializable{
 
     /*
         Class to represent a form of authentication.

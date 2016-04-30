@@ -4,8 +4,9 @@ import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.nio.file.Files;
 /**
- * Created by knnth on 4/29/2016.
- */
+ * This Settings class will hold settings needed by the user in order to lock files
+ * This will include the user name, password, and paths of Files the user would like to protect.
+ **/
 public class Settings implements Serializable{
     private String username; //username used to define who is locking the files.
     private AuthenticationObject password = null; //password saved in order to lock files.
@@ -23,15 +24,13 @@ public class Settings implements Serializable{
 
     public void save() {
         Path folderpath = Paths.get(System.getProperty("user.home") + "\\PrivaLock\\Setttings");
-        Path filepath = Paths.get(folderpath.toString(), "\\u.ser");
-
-        Settings current = new Settings(username, password);
+        Path filepath = Paths.get(folderpath.toString(), "\\"+username+"_u.ser");
         try {
             Files.createDirectories(folderpath); //creates the directories needed relative the parent path of the file.
 
             FileOutputStream fileOut = new FileOutputStream(filepath.toString()); //new FileOutputStream to create the .ser file.
             ObjectOutputStream out = new ObjectOutputStream(fileOut); //new ObjectOutputStream to write objects in file.
-            out.writeObject(current); //writes the setting object in the file.
+            out.writeObject(this); //writes the setting object in the file.
             out.close();
             fileOut.close();
             System.out.printf("Serialized data is saved in: "+  filepath.toString());
@@ -40,20 +39,31 @@ public class Settings implements Serializable{
         }
     }
 
-    public void loadSave(){
-        /**
-         * Should load the custom save file/settings file that was created from save. (Add a parameter to the method)
-         */
-    }
-
-    public void setPassword(AuthenticationObject password){
-
-        this.password = password;
-
+    public void loadSave(String username){
+        Path filepath = Paths.get(System.getProperty("user.home") + "\\PrivaLock\\Setttings\\" + username +"_u.ser");
+        try {
+            FileInputStream fileIn = new FileInputStream(filepath.toString());
+            ObjectInputStream in = new ObjectInputStream(fileIn);
+            Settings temp = (Settings) in.readObject();
+            System.out.println(temp.toString());
+            this.username = temp.username;
+            password = temp.password;
+            fileLock = new ArrayList<String>(temp.fileLock);
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+        }
     }
 
     public void chooseFiles(String file){
         fileLock.add(file);
     }
-
+    public String toString(){
+        return "\nFiles:" + fileLock.toString()
+                +"\nUser:" + username +
+                "\nPassword:" + password;
+    }
 }
