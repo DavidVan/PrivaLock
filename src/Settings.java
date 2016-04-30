@@ -1,3 +1,4 @@
+import javax.swing.*;
 import java.io.*;
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -27,7 +28,6 @@ public class Settings implements Serializable{
         Path filepath = Paths.get(folderpath.toString(), "\\"+username+"_u.ser");
         try {
             Files.createDirectories(folderpath); //creates the directories needed relative the parent path of the file.
-
             FileOutputStream fileOut = new FileOutputStream(filepath.toString()); //new FileOutputStream to create the .ser file.
             ObjectOutputStream out = new ObjectOutputStream(fileOut); //new ObjectOutputStream to write objects in file.
             out.writeObject(this); //writes the setting object in the file.
@@ -42,9 +42,9 @@ public class Settings implements Serializable{
     public void loadSave(String username){
         Path filepath = Paths.get(System.getProperty("user.home") + "\\PrivaLock\\Setttings\\" + username +"_u.ser");
         try {
-            FileInputStream fileIn = new FileInputStream(filepath.toString());
-            ObjectInputStream in = new ObjectInputStream(fileIn);
-            Settings temp = (Settings) in.readObject();
+            FileInputStream fileIn = new FileInputStream(filepath.toString()); //new FileInputStream to read file
+            ObjectInputStream in = new ObjectInputStream(fileIn);   //new ObjectInputStream to read in Setting Object
+            Settings temp = (Settings) in.readObject();  //temporary Setting object is needed for reading and loading
             System.out.println(temp.toString());
             this.username = temp.username;
             password = temp.password;
@@ -57,7 +57,7 @@ public class Settings implements Serializable{
             e.printStackTrace();
         }
     }
-
+    //inserts file paths into the fileLock Array List. This is where all protected files are stored.
     public void chooseFiles(String file){
         fileLock.add(file);
     }
