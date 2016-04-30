@@ -29,11 +29,6 @@ public class PasswordAuthentication extends Authentication {
     }
 
     @Override
-    public boolean isAuthenticated() {
-        return this.getAuthenticationType() != null;
-    }
-
-    @Override
     public boolean checkAuthentication(AuthenticationObject authObj) {
         if (!isSetUp()) {
             return false;

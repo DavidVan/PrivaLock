@@ -53,9 +53,11 @@ public abstract class Authentication {
         return this.setUp;
     }
 
-    public abstract boolean setUpAuthentication(AuthenticationObject authObj) throws AlreadySetUpException;
+    public boolean isAuthenticated() {
+        return this.getAuthenticationType() != null;
+    }
 
-    public abstract boolean isAuthenticated();
+    public abstract boolean setUpAuthentication(AuthenticationObject authObj) throws AlreadySetUpException;
 
     public abstract boolean checkAuthentication(AuthenticationObject authObj);
 }
