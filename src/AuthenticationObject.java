@@ -22,7 +22,7 @@ public class AuthenticationObject implements Serializable{
 
     @Override
     public String toString() {
-        return byteToHex(this.data);
+        return byteToHex(this.data); // If data is a hash, returns hex view of it.
     }
 
     public String byteToHex(byte[] hashedContent) {
