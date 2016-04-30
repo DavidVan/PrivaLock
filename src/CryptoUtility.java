@@ -21,11 +21,11 @@ public class CryptoUtility {
         doCrypto(Cipher.ENCRYPT_MODE, password, myFile, encryptTo);
     }
 
-    public CryptoUtility() throws NoSuchAlgorithmException {
-        MessageDigest test = MessageDigest.getInstance("SHA-512");
-        test.update("A".getBytes());
+    public CryptoUtility(String password) throws NoSuchAlgorithmException {
+        MessageDigest test = MessageDigest.getInstance("MD5");
+        test.update(password.getBytes());
         AuthenticationObject name = new AuthenticationObject(test.digest());
-        password = name.getHashedForm();
+        this.password = name.getHashedForm();
     }
     public static void encrypt(File myFile, File output){
         doCrypto(Cipher.ENCRYPT_MODE, password, myFile, output);
