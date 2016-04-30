@@ -17,9 +17,6 @@ public class CryptoUtility {
     private static final String ALGORITHM = "AES";
     private static final String TRANSFORM = "AES";
     private static  byte[] password = null;
-    public static void encrypt(byte[] password, File myFile, File encryptTo) {
-        doCrypto(Cipher.ENCRYPT_MODE, password, myFile, encryptTo);
-    }
 
     public CryptoUtility(String password) throws NoSuchAlgorithmException {
         MessageDigest test = MessageDigest.getInstance("MD5");
@@ -27,6 +24,11 @@ public class CryptoUtility {
         AuthenticationObject name = new AuthenticationObject(test.digest());
         this.password = name.getHashedForm();
     }
+
+    public static void encrypt(byte[] password, File myFile, File encryptTo) {
+        doCrypto(Cipher.ENCRYPT_MODE, password, myFile, encryptTo);
+    }
+
     public static void encrypt(File myFile, File output){
         doCrypto(Cipher.ENCRYPT_MODE, password, myFile, output);
     }
@@ -34,6 +36,7 @@ public class CryptoUtility {
     public static void decrypt(byte[] password, File myFile, File decryptTo) {
         doCrypto(Cipher.DECRYPT_MODE, password, myFile, decryptTo);
     }
+
     public static void decrypt(File myFile, File decryptTo){
         doCrypto(Cipher.DECRYPT_MODE, password, myFile, decryptTo);
     }
