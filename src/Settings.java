@@ -15,11 +15,17 @@ public class Settings<V> {
         this.password = password;
     }
 
-    /**
-     * You want to be able to save the current state of settings.. Implement here.
-     */
     public void save(){
 
+        /**
+         * You want to be able to save the current state of settings.. Implement here. If there was a setting left unmarked, will prompt error accordingly
+         */
+    }
+
+    public void loadSave(){
+        /**
+         * Should load the custom save file/settings file that was created from save. (Add a parameter to the method)
+         */
     }
 
     public void setPassword(String password){
