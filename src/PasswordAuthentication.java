@@ -41,12 +41,12 @@ public class PasswordAuthentication extends Authentication {
         else {
             try {
                 // The password in this object.
-                MessageDigest systemEncryptedContent = MessageDigest.getInstance("SHA-512");
-                systemEncryptedContent.update(this.getHashedForm());
+                MessageDigest systemHashedContent = MessageDigest.getInstance("SHA-512");
+                systemHashedContent.update(this.getHashedForm());
                 // The user-entered password.
-                MessageDigest userEncryptedContent = MessageDigest.getInstance("SHA-512");
-                userEncryptedContent.update(authObj.getHashedForm());
-                if (MessageDigest.isEqual(systemEncryptedContent.digest(), userEncryptedContent.digest())) {
+                MessageDigest userHashedContent = MessageDigest.getInstance("SHA-512");
+                userHashedContent.update(authObj.getHashedForm());
+                if (MessageDigest.isEqual(systemHashedContent.digest(), userHashedContent.digest())) {
                     return true; // Looks like it's the same password.
                 }
             }
@@ -56,4 +56,5 @@ public class PasswordAuthentication extends Authentication {
             return false; // Wrong password.
         }
     }
+
 }
