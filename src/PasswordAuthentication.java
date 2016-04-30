@@ -36,10 +36,10 @@ public class PasswordAuthentication extends Authentication {
         else {
             try {
                 // The password in this object.
-                MessageDigest systemHashedContent = MessageDigest.getInstance("SHA-512");
+                MessageDigest systemHashedContent = MessageDigest.getInstance("MD5");
                 systemHashedContent.update(this.getHashedForm());
                 // The user-entered password.
-                MessageDigest userHashedContent = MessageDigest.getInstance("SHA-512");
+                MessageDigest userHashedContent = MessageDigest.getInstance("MD5");
                 userHashedContent.update(authObj.getHashedForm());
                 if (MessageDigest.isEqual(systemHashedContent.digest(), userHashedContent.digest())) {
                     return true; // Looks like it's the same password.
