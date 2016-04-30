@@ -38,6 +38,7 @@ public class PrivaLock {
                         encryption = new CryptoUtility(scan.next());
                         encryption.encrypt(myFile, encrypted);
                         myFile.delete();
+                        
                     }
                     break;
                 case 2:
